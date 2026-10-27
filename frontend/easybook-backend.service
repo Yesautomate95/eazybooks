@@ -1,0 +1,17 @@
+[Unit]
+Description=EazyBooks FastAPI Backend
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/easybook/backend
+Environment=PATH=/var/www/easybook/backend/venv/bin
+ExecStart=/var/www/easybook/backend/venv/bin/python -m uvicorn run:app --host 127.0.0.1 --port 8000 --ws-ping-interval 20 --ws-ping-timeout 20
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/easybook-backend.log
+StandardError=append:/var/log/easybook-backend.log
+
+[Install]
+WantedBy=multi-user.target

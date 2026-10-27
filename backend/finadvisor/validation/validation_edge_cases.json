@@ -1,0 +1,9 @@
+[{
+    "prompt": "I have ₹10 LPA in fixed deposits and ₹15 LPA in mutual funds. User ID: user36",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user36",
+      "financial_data_string": "I have ₹10 LPA in fixed deposits and ₹15 LPA in mutual funds."
+    }
+  }
+]

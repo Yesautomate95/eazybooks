@@ -1,0 +1,89 @@
+# Core
+fastapi
+uvicorn
+pydantic[email]>=2.0.0
+python-multipart
+python-dotenv>=1.0.0
+
+# Database
+psycopg2-binary
+SQLAlchemy>=2.0.0
+
+# Authentication
+firebase-admin
+pyjwt
+cryptography
+bcrypt
+
+# HTTP/Async
+requests
+httpx
+aiohttp>=3.11.0
+aiofiles
+
+# AWS
+boto3
+botocore
+aioboto3
+
+# AI/ML - Use compatible versions
+openai>=1.24.0,<2.0.0
+anthropic>=0.40.0
+langchain>=0.1.0
+langchain-core>=0.1.0
+langchain-community>=0.0.38
+langchain-openai>=0.1.0
+langgraph>=0.1.11
+tiktoken
+sentence-transformers
+
+# Vector DB
+pinecone
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+openpyxl>=3.1.0
+python-docx>=1.0.0
+numpy_financial
+sympy
+rapidfuzz>=3.0.0
+
+# PDF/Documents
+PyPDF2
+PyMuPDF
+pillow
+pdfplumber
+pdfminer.six
+openpyxl
+xlrd
+
+# Web scraping
+beautifulsoup4>=4.12.0
+
+# XML
+xmltodict
+lxml
+
+# Search
+tavily-python
+
+# Other APIs
+yfinance
+newsapi-python
+praw
+kiteconnect
+google-cloud-vision
+google-genai
+google-adk
+
+# Database tools
+vanna
+litellm
+pyodbc
+
+# Utilities
+certifi
+protobuf>=4.22.0
+wsproto
+python-magic

@@ -1,0 +1,272 @@
+"""
+    This file contains the core functionality of the chat service.
+"""
+
+import asyncio
+import json
+import logging
+import os
+
+from openai import AsyncOpenAI as OpenAI
+from openai.types.beta import Assistant, Thread
+from openai.types.beta.assistant_stream_event import (
+    ThreadRunRequiresAction,
+    ThreadMessageDelta,
+    ThreadRunFailed,
+    ThreadRunCancelling,
+    ThreadRunCancelled,
+    ThreadRunExpired,
+    ThreadRunStepFailed,
+    ThreadRunStepCancelled,
+)
+
+from finadvisor.chatbot.assistants.assistant_setup import AssistantSetup
+from finadvisor.chatbot.config.main import config
+from finadvisor.chatbot.config.prompts import SYS_PROMPT
+from finadvisor.services.Functions import get_or_create_session, store_message
+from finadvisor.services.Functions import get_stock_info, get_stocks_news, search_reddit, internet_search, extract_financial_data, \
+    extract_and_store_portfolio_data
+from finadvisor.chatbot.tools.definitions import TOOLS
+from utils.chat_helper import extract_user_id
+from utils.chat_helper import trim_message
+
+# Configure logging at the beginning of your main file or service
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[logging.FileHandler("tool_calls.log"), logging.StreamHandler()],
+)
+
+os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
+
+class ChatService():
+    """
+    This class is used to handle the OpenAI GPT based assistant.
+    """
+
+    assistant: Assistant = None
+    assistant_setup: AssistantSetup = None
+    sys_prompt: str = SYS_PROMPT
+    chat_to_thread_map = {}
+    tools = []
+    tool_instances = {}
+
+    def __init__(self) -> None:
+        self.client = OpenAI()
+        self.name = 'Financial Analyst'
+        self.assistant_id = config.ASSISTANT_ID
+        self.init_tools()
+        self.initialize()
+
+    def initialize(self):
+        """
+        This function initializes the required services and objects.
+        """
+        self.assistant_setup = AssistantSetup(
+            self.client,
+            self.assistant_id,
+            self.sys_prompt,
+            self.name,
+            self.tools,
+        )
+
+    def init_tools(self):
+        """
+        This function initializes the tools.
+        """
+        self.tools = TOOLS
+        self.tool_instances = {
+            "get_stock_info": get_stock_info,
+            "get_stocks_news": get_stocks_news,
+            "search_reddit": search_reddit,
+            "internet_search": internet_search,
+            "extract_financial_data": extract_financial_data,
+            "extract_and_store_portfolio_data": extract_and_store_portfolio_data
+        }
+
+    async def create_assistant(self):
+        """
+        This function creates assistant if not exists
+        """
+        if not self.assistant:
+            self.assistant = (  # pylint: disable=attribute-defined-outside-init
+                await self.assistant_setup.create_or_update_assistant()
+            )
+
+    async def generate(self, chat_id, content):
+        """
+        It generates the response for the user query.
+        """
+        await self.create_assistant()
+        thread = await self.create_or_get_thread(chat_id)
+        await self.client.beta.threads.messages.create(
+            thread.id,
+            role="user",
+            content=content,
+        )
+        stream = await self.client.beta.threads.runs.create(
+            thread_id=thread.id, assistant_id=self.assistant.id, stream=True
+        )
+
+        response = ""
+        async for event in stream:
+            async for token in self.process_event(event, thread):
+                response+=token.text.value
+                yield token
+
+        user_id = extract_user_id(content)
+        content_without_user_id = trim_message(content, "user_id")
+        session_id = get_or_create_session(user_id, content_without_user_id)
+        await store_message(user_id, session_id, "user", content_without_user_id)
+        await store_message(user_id, session_id, "bot", response)
+        print("Tool run completed")
+
+    async def create_or_get_thread(self, chat_id) -> Thread:
+        """
+        This function either creates a new thread for the chat_id or gets the existing thread.
+        """
+        thread = None
+        if self.chat_to_thread_map.get(chat_id):
+            try:
+                thread = await self.client.beta.threads.retrieve(self.chat_to_thread_map[chat_id])
+            except Exception as e:  # pylint: disable=bare-except, broad-except
+                thread = None
+        if not thread:
+            thread = await self.client.beta.threads.create(
+                metadata={
+                    "chat_id": str(chat_id),
+                },
+            )
+            self.chat_to_thread_map[chat_id] = thread.id
+        return thread
+
+    def create_tool_output(self, tool_call, tool_result):
+        """
+        This function creates the tool output.
+        """
+        output = {
+            "tool_call_id": tool_call.id,
+            "output": tool_result,
+        }
+        return output
+
+    async def process_event(self, event, thread: Thread, **kwargs):
+        """
+        Process an event in the thread.
+
+        Args:
+            event: The event to be processed.
+            thread: The thread object.
+            **kwargs: Additional keyword arguments.
+
+        Yields:
+            The processed tokens.
+
+        Raises:
+            Exception: If the run fails.
+        """
+        if isinstance(event, ThreadMessageDelta):
+            data = event.data.delta.content
+            for d in data:
+                yield d
+
+        elif isinstance(event, ThreadRunRequiresAction):
+            run_obj = event.data
+            tool_outputs = await self.process_tool_calls(
+                run_obj.required_action.submit_tool_outputs.tool_calls
+            )
+            tool_output_events = (
+                await self.client.beta.threads.runs.submit_tool_outputs(
+                    thread_id=thread.id,
+                    run_id=run_obj.id,
+                    tool_outputs=tool_outputs,
+                    stream=True,
+                )
+            )
+            async for tool_event in tool_output_events:
+                async for token in self.process_event(
+                    tool_event, thread=thread, **kwargs
+                ):
+                    yield token
+
+        elif any(
+            isinstance(event, cls)
+            for cls in [
+                ThreadRunFailed,
+                ThreadRunCancelling,
+                ThreadRunCancelled,
+                ThreadRunExpired,
+                ThreadRunStepFailed,
+                ThreadRunStepCancelled,
+            ]
+        ):
+            raise Exception("Run failed") # pylint: disable=broad-exception-raised
+
+    async def process_tool_call(self, tool_call, tool_outputs: list, extra_args=None):
+        """
+        This function processes a single tool call.
+        Logs the function name and arguments for validation.
+        """
+        result = None
+        try:
+            arguments = json.loads(tool_call.function.arguments)
+            function_name = tool_call.function.name
+
+            # Log function name and arguments for validation
+            self.log_tool_call(function_name, arguments)
+
+            if extra_args:
+                for key, value in extra_args.items():
+                    arguments[key] = value
+
+            if function_name not in self.tool_instances:
+                result = "Tool not found"
+            else:
+                result = await self.tool_instances[function_name](**arguments)
+        except Exception as e:  # pylint: disable=broad-except
+            result = str(e)
+
+        created_tool_output = self.create_tool_output(tool_call, result)
+        tool_outputs.append(created_tool_output)
+
+    def log_tool_call(self, function_name, arguments):
+        """
+        Logs the tool call for validation purposes.
+        """
+        if not hasattr(self, "_logged_tool_calls"):
+            self._logged_tool_calls = []
+        self._logged_tool_calls.append({
+            "function_name": function_name,
+            "arguments": arguments,
+        })
+
+    async def process_tool_calls(self, tool_calls, extra_args=None):
+        """
+        This function processes all the tool calls.
+        Logs the start and end of processing, as well as progress.
+        """
+        tool_outputs = []
+        coroutines = []
+        total_calls = len(tool_calls)
+
+        # Log the start of the process
+        logging.info(f"Starting to process {total_calls} tool calls.")
+
+        for i, tool_call in enumerate(tool_calls):
+            # Log each tool call being added for processing
+            logging.info(f"Queuing tool call {i + 1}/{total_calls}: {tool_call.function.name}")
+            coroutines.append(self.process_tool_call(tool_call, tool_outputs, extra_args))
+
+        if coroutines:
+            await asyncio.gather(*coroutines)
+
+        # Log the completion of all tool calls
+        logging.info("Completed processing all tool calls.")
+
+        return tool_outputs
+
+    def get_logged_tool_calls(self):
+        """
+        Retrieves the logged tool calls for validation.
+        """
+        return getattr(self, "_logged_tool_calls", [])

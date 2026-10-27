@@ -1,0 +1,323 @@
+[
+  {
+    "prompt": "My income is ₹12 LPA, but I spend most of it. I manage to save only ₹1 LPA yearly. User ID: user31",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user31",
+      "financial_data_string": "My income is ₹12 LPA, but I spend most of it. I manage to save only ₹1 LPA yearly."
+    }
+  },
+  {
+    "prompt": "I earn ₹50 LPA but have a business loan EMI of ₹2 LPA monthly. User ID: user32",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user32",
+      "financial_data_string": "I earn ₹50 LPA but have a business loan EMI of ₹2 LPA monthly."
+    }
+  },
+  {
+    "prompt": "I earn ₹18 LPA annually and spend ₹5 LPA on healthcare expenses. User ID: user33",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user33",
+      "financial_data_string": "I earn ₹18 LPA annually and spend ₹5 LPA on healthcare expenses."
+    }
+  },
+  {
+    "prompt": "My monthly salary is ₹1.5 LPA, and I save ₹40,000 every month. User ID: user34",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user34",
+      "financial_data_string": "My monthly salary is ₹1.5 LPA, and I save ₹40,000 every month."
+    }
+  },
+  {
+    "prompt": "My yearly income is ₹25 LPA, but I pay ₹2 LPA in taxes and save ₹5 LPA. User ID: user35",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user35",
+      "financial_data_string": "My yearly income is ₹25 LPA, but I pay ₹2 LPA in taxes and save ₹5 LPA."
+    }
+  },
+  {
+    "prompt": "I have ₹10 LPA in fixed deposits and ₹15 LPA in mutual funds. User ID: user36",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user36",
+      "financial_data_string": "I have ₹10 LPA in fixed deposits and ₹15 LPA in mutual funds."
+    }
+  },
+  {
+    "prompt": "My monthly rent is ₹30,000, and I spend ₹20,000 on groceries and utilities. User ID: user37",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user37",
+      "financial_data_string": "My monthly rent is ₹30,000, and I spend ₹20,000 on groceries and utilities."
+    }
+  },
+  {
+    "prompt": "I earn ₹10 LPA and allocate ₹2 LPA for my child's education annually. User ID: user38",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user38",
+      "financial_data_string": "I earn ₹10 LPA and allocate ₹2 LPA for my child's education annually."
+    }
+  },
+  {
+    "prompt": "My side business generates ₹5 LPA, and I invest ₹3 LPA in stocks from that income. User ID: user39",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user39",
+      "financial_data_string": "My side business generates ₹5 LPA, and I invest ₹3 LPA in stocks from that income."
+    }
+  },
+  {
+    "prompt": "I save ₹2 LPA yearly and keep ₹1 LPA in a recurring deposit. User ID: user40",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user40",
+      "financial_data_string": "I save ₹2 LPA yearly and keep ₹1 LPA in a recurring deposit."
+    }
+  },
+  {
+    "prompt": "I spend ₹8 LPA annually on lifestyle expenses and save ₹2 LPA for my retirement. User ID: user41",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user41",
+      "financial_data_string": "I spend ₹8 LPA annually on lifestyle expenses and save ₹2 LPA for my retirement."
+    }
+  },
+  {
+    "prompt": "My salary is ₹35 LPA, and I donate ₹1 LPA annually to charities. User ID: user42",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user42",
+      "financial_data_string": "My salary is ₹35 LPA, and I donate ₹1 LPA annually to charities."
+    }
+  },
+  {
+    "prompt": "I earn ₹22 LPA but spend ₹12 LPA on a mortgage and ₹3 LPA on car EMI. User ID: user43",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user43",
+      "financial_data_string": "I earn ₹22 LPA but spend ₹12 LPA on a mortgage and ₹3 LPA on car EMI."
+    }
+  },
+  {
+    "prompt": "I earn ₹40 LPA, but my net income is ₹35 LPA after taxes. User ID: user44",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user44",
+      "financial_data_string": "I earn ₹40 LPA, but my net income is ₹35 LPA after taxes."
+    }
+  },
+  {
+    "prompt": "I save ₹50,000 per month and allocate ₹20,000 of that to mutual funds. User ID: user45",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user45",
+      "financial_data_string": "I save ₹50,000 per month and allocate ₹20,000 of that to mutual funds."
+    }
+  },
+  {
+    "prompt": "My annual income is ₹28 LPA, and I pay ₹3 LPA in insurance premiums. User ID: user46",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user46",
+      "financial_data_string": "My annual income is ₹28 LPA, and I pay ₹3 LPA in insurance premiums."
+    }
+  },
+  {
+    "prompt": "I earn ₹15 LPA but spend ₹2 LPA on vacations and ₹3 LPA on personal development. User ID: user47",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user47",
+      "financial_data_string": "I earn ₹15 LPA but spend ₹2 LPA on vacations and ₹3 LPA on personal development."
+    }
+  },
+  {
+    "prompt": "My monthly income is ₹2 LPA, and I save ₹50,000 monthly for a house. User ID: user48",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user48",
+      "financial_data_string": "My monthly income is ₹2 LPA, and I save ₹50,000 monthly for a house."
+    }
+  },
+  {
+    "prompt": "I earn ₹30 LPA and have no savings but plan to start saving ₹5 LPA this year. User ID: user49",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user49",
+      "financial_data_string": "I earn ₹30 LPA and have no savings but plan to start saving ₹5 LPA this year."
+    }
+  },
+  {
+    "prompt": "My annual salary is ₹45 LPA, and I spend ₹5 LPA on leisure and luxury. User ID: user50",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user50",
+      "financial_data_string": "My annual salary is ₹45 LPA, and I spend ₹5 LPA on leisure and luxury."
+    }
+  },
+  {
+    "prompt": "I save a decent portion of my salary each year. User ID: user51",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user51",
+      "financial_data_string": "I save a decent portion of my salary each year."
+    }
+  },
+  {
+    "prompt": "Most of my income goes towards paying rent and daily expenses. User ID: user52",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user52",
+      "financial_data_string": "Most of my income goes towards paying rent and daily expenses."
+    }
+  },
+  {
+    "prompt": "I invest regularly in mutual funds and occasionally in stocks. User ID: user53",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user53",
+      "financial_data_string": "I invest regularly in mutual funds and occasionally in stocks."
+    }
+  },
+  {
+    "prompt": "A significant chunk of my earnings is spent on my children's education. User ID: user54",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user54",
+      "financial_data_string": "A significant chunk of my earnings is spent on my children's education."
+    }
+  },
+  {
+    "prompt": "I save whatever is left after paying my monthly bills and expenses. User ID: user55",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user55",
+      "financial_data_string": "I save whatever is left after paying my monthly bills and expenses."
+    }
+  },
+  {
+    "prompt": "My priority is saving for retirement and paying off my debts. User ID: user56",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user56",
+      "financial_data_string": "My priority is saving for retirement and paying off my debts."
+    }
+  },
+  {
+    "prompt": "I try to maintain a balance between my expenses and savings every month. User ID: user57",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user57",
+      "financial_data_string": "I try to maintain a balance between my expenses and savings every month."
+    }
+  },
+  {
+    "prompt": "I don’t have much left after my EMIs and daily expenses. User ID: user58",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user58",
+      "financial_data_string": "I don’t have much left after my EMIs and daily expenses."
+    }
+  },
+  {
+    "prompt": "I aim to save a substantial amount for my child's higher education. User ID: user59",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user59",
+      "financial_data_string": "I aim to save a substantial amount for my child's higher education."
+    }
+  },
+  {
+    "prompt": "I try to keep my investments diversified across different sectors. User ID: user60",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user60",
+      "financial_data_string": "I try to keep my investments diversified across different sectors."
+    }
+  },
+  {
+    "prompt": "My financial focus is on building an emergency fund and reducing debt. User ID: user61",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user61",
+      "financial_data_string": "My financial focus is on building an emergency fund and reducing debt."
+    }
+  },
+  {
+    "prompt": "I spend most of my money on travel and lifestyle expenses. User ID: user62",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user62",
+      "financial_data_string": "I spend most of my money on travel and lifestyle expenses."
+    }
+  },
+  {
+    "prompt": "I don’t have a clear savings plan, but I try to save occasionally. User ID: user63",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user63",
+      "financial_data_string": "I don’t have a clear savings plan, but I try to save occasionally."
+    }
+  },
+  {
+    "prompt": "A large part of my salary is spent on rent, and I save whatever is left. User ID: user64",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user64",
+      "financial_data_string": "A large part of my salary is spent on rent, and I save whatever is left."
+    }
+  },
+  {
+    "prompt": "I primarily save for vacations and large purchases like a car. User ID: user65",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user65",
+      "financial_data_string": "I primarily save for vacations and large purchases like a car."
+    }
+  },
+  {
+    "prompt": "I allocate most of my savings to fixed deposits and low-risk investments. User ID: user66",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user66",
+      "financial_data_string": "I allocate most of my savings to fixed deposits and low-risk investments."
+    }
+  },
+  {
+    "prompt": "I am struggling with high credit card bills and EMIs. User ID: user67",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user67",
+      "financial_data_string": "I am struggling with high credit card bills and EMIs."
+    }
+  },
+  {
+    "prompt": "My current financial priority is to save more for a down payment on a house. User ID: user68",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user68",
+      "financial_data_string": "My current financial priority is to save more for a down payment on a house."
+    }
+  },
+  {
+    "prompt": "I contribute regularly to my retirement fund but need to increase my savings rate. User ID: user69",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user69",
+      "financial_data_string": "I contribute regularly to my retirement fund but need to increase my savings rate."
+    }
+  },
+  {
+    "prompt": "I am unsure about my financial health and need help understanding my spending habits. User ID: user70",
+    "expected_function": "extract_financial_data",
+    "expected_parameters": {
+      "user_id": "user70",
+      "financial_data_string": "I am unsure about my financial health and need help understanding my spending habits."
+    }
+  }
+]
+

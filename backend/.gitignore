@@ -1,0 +1,38 @@
+# Ignore pycache
+__pycache__/
+**/__pycache__/
+
+# Ignore .idea directory
+.idea/
+
+# Ignore virtual environments (common patterns)
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Secrets / local keys
+firebase_key.json
+private_key.pem
+
+# Tally XML debug logs (raw request/response dumps)
+tally_debug_logs/
+
+# Ignore other common patterns
+*.log
+*.pyc
+*.pyo
+*.swp
+.DS_Store
+Thumbs.db
+
+# Test and build artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/

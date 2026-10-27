@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EazyBooks - Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .login-card {
+            background-color: #1a1a1a;
+            padding: 48px;
+            border-radius: 12px;
+            width: 360px;
+        }
+        .login-container {
+            text-align: center;
+        }
+        .logo {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            color: white;
+        }
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 8px 0;
+        }
+        .sign-in-text {
+            font-size: 16px;
+            color: #9ca3af;
+            margin: 0 0 24px 0;
+            font-weight: normal;
+        }
+        .tab-container {
+            display: flex;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #333;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab.active {
+            color: white;
+            border-bottom-color: white;
+        }
+        .tab:hover {
+            color: #d1d5db;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #d1d5db;
+            margin-bottom: 6px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #2a2a2a;
+            border: 1px solid #4a4a4a;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+        }
+        .form-input::placeholder {
+            color: #6b7280;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            background-color: white;
+            border: none;
+            border-radius: 6px;
+            color: black;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 8px;
+        }
+        .submit-button:hover {
+            background-color: #e5e7eb;
+        }
+        .submit-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #4a4a4a;
+        }
+        .divider-text {
+            padding: 0 12px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+        .google-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            background-color: #2a2a2a;
+            border: 1px solid #4a4a4a;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-sizing: border-box;
+        }
+        .google-button:hover {
+            background-color: #3a3a3a;
+        }
+        .google-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+        .error-message {
+            color: #f87171;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+            display: none;
+        }
+        .switch-text {
+            color: #9ca3af;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .switch-link {
+            color: #60a5fa;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .switch-link:hover {
+            color: #93bbfd;
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-container">
+            <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h1 class="brand-name">EazyBooks</h1>
+            <p class="sign-in-text" id="headerText">Sign in to continue</p>
+
+            <!-- Tab switcher -->
+            <div class="tab-container">
+                <button class="tab active" id="signinTab">Sign In</button>
+                <button class="tab" id="signupTab">Sign Up</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <form id="signinForm">
+                <div class="form-group">
+                    <label class="form-label" for="signinEmail">Email</label>
+                    <input class="form-input" type="email" id="signinEmail" placeholder="Your email address" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="signinPassword">Password</label>
+                    <input class="form-input" type="password" id="signinPassword" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="submit-button" id="signinButton">Sign In</button>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm" class="hidden">
+                <div class="form-group">
+                    <label class="form-label" for="signupName">Name <span style="color:#6b7280">(optional)</span></label>
+                    <input class="form-input" type="text" id="signupName" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="signupEmail">Email</label>
+                    <input class="form-input" type="email" id="signupEmail" placeholder="Your email address" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="signupPassword">Password</label>
+                    <input class="form-input" type="password" id="signupPassword" placeholder="At least 6 characters" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="signupConfirm">Confirm Password</label>
+                    <input class="form-input" type="password" id="signupConfirm" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="submit-button" id="signupButton">Create Account</button>
+            </form>
+
+            <div class="divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">OR</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <button id="googleButton" class="google-button">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                </svg>
+                Continue with Google
+            </button>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <p class="switch-text" id="switchText">
+                Don't have an account? <a class="switch-link" id="switchLink">Sign up</a>
+            </p>
+        </div>
+    </div>
+    <script>
+        let API_URL = 'http://localhost:8000';
+        let isSignup = false;
+
+        // Load API URL from env config
+        if (window.electron && window.electron.getEnvVars) {
+            window.electron.getEnvVars().then(vars => {
+                if (vars && vars.REACT_APP_API_URL) {
+                    API_URL = vars.REACT_APP_API_URL;
+                }
+            }).catch(() => {});
+        }
+
+        // Tab switching
+        document.getElementById('signinTab').addEventListener('click', () => switchTab(false));
+        document.getElementById('signupTab').addEventListener('click', () => switchTab(true));
+        document.getElementById('switchLink').addEventListener('click', () => switchTab(!isSignup));
+
+        function switchTab(signup) {
+            isSignup = signup;
+            document.getElementById('signinForm').classList.toggle('hidden', signup);
+            document.getElementById('signupForm').classList.toggle('hidden', !signup);
+            document.getElementById('signinTab').classList.toggle('active', !signup);
+            document.getElementById('signupTab').classList.toggle('active', signup);
+            document.getElementById('headerText').textContent = signup ? 'Create your account' : 'Sign in to continue';
+            document.getElementById('switchText').innerHTML = signup
+                ? 'Already have an account? <a class="switch-link" id="switchLink">Sign in</a>'
+                : 'Don\'t have an account? <a class="switch-link" id="switchLink">Sign up</a>';
+            document.getElementById('switchLink').addEventListener('click', () => switchTab(!isSignup));
+            hideError();
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function setButtonLoading(btn, loading, text) {
+            btn.disabled = loading;
+            btn.textContent = loading ? 'Please wait...' : text;
+        }
+
+        async function handleAuth(endpoint, body) {
+            const response = await fetch(`${API_URL}/ca/auth/${endpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.detail || 'Authentication failed');
+            }
+            return data;
+        }
+
+        // Sign In
+        document.getElementById('signinForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+            const btn = document.getElementById('signinButton');
+            const email = document.getElementById('signinEmail').value;
+            const password = document.getElementById('signinPassword').value;
+
+            if (!email || !password) { showError('Please enter both email and password.'); return; }
+
+            try {
+                setButtonLoading(btn, true, 'Sign In');
+                const data = await handleAuth('email-signin', { email, password });
+                // Store token and trigger deep link handler
+                window.electron.storeToken(data.jwt_token, data.user);
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                setButtonLoading(btn, false, 'Sign In');
+            }
+        });
+
+        // Sign Up
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+            const btn = document.getElementById('signupButton');
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+
+            if (!email || !password) { showError('Please fill in all required fields.'); return; }
+            if (password.length < 6) { showError('Password must be at least 6 characters.'); return; }
+            if (password !== confirm) { showError('Passwords do not match.'); return; }
+
+            try {
+                setButtonLoading(btn, true, 'Create Account');
+                const data = await handleAuth('email-signup', { email, password, name });
+                window.electron.storeToken(data.jwt_token, data.user);
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                setButtonLoading(btn, false, 'Create Account');
+            }
+        });
+
+        // Google Sign In (opens browser)
+        document.getElementById('googleButton').addEventListener('click', async () => {
+            const btn = document.getElementById('googleButton');
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Opening browser...';
+                await window.electron.redirectToAuth();
+            } catch (error) {
+                showError('Failed to open sign-in page.');
+                btn.disabled = false;
+                btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Continue with Google';
+            }
+        });
+
+        // Listen for auth events from main process
+        window.electron.onAuthSuccess((data) => {
+            console.log('Auth success:', data);
+        });
+
+        window.electron.onAuthError((error) => {
+            showError(error.message || 'Authentication failed');
+            const btn = document.getElementById('googleButton');
+            btn.disabled = false;
+            btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Continue with Google';
+        });
+    </script>
+</body>
+</html>

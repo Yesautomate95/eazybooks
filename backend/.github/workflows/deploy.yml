@@ -1,0 +1,32 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow only on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code from the GitHub repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up SSH key
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      # Step 3: Deploy to the EC2 instance
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@3.109.207.91 << 'EOF'
+          cd /home/ubuntu/AureusChatBot  # Navigate to the application folder
+          git pull origin main  # Pull the latest changes from the main branch
+          source /home/ubuntu/AureusChatBot/venv/bin/activate  # Activate the virtual environment
+          pip install -r requirements.txt  # Install dependencies
+          sudo systemctl restart fastapi  # Restart the FastAPI service
+          EOF

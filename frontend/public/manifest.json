@@ -1,0 +1,26 @@
+{
+  "short_name": "EazyBooks",
+  "name": "EazyBooks — Accounting Meets AI",
+  "description": "AI-powered accounting and Tally integration platform for Chartered Accountants.",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#F8F4EA",
+  "background_color": "#F8F4EA"
+}

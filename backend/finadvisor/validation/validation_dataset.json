@@ -1,0 +1,82 @@
+[
+  {
+    "prompt": "Provide the latest stock data for Apple Inc. User ID: user1",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Apple Inc.",
+      "ticker": "AAPL"
+    }
+  },
+  {
+    "prompt": "Fetch stock information for Microsoft Corporation . User ID: user2",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Microsoft Corporation",
+      "ticker": "MSFT"
+    }
+  },
+  {
+    "prompt": "I need the latest financial data on Tesla Inc.. User ID: user3",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Tesla Inc.",
+      "ticker": "TSLA"
+    }
+  },
+  {
+    "prompt": "What are the stock details for Alphabet Inc.? User ID: user4",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Alphabet Inc.",
+      "ticker": "GOOGL"
+    }
+  },
+  {
+    "prompt": "Give me the stock price and performance for Amazon.com Inc. User ID: user5",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Amazon.com Inc.",
+      "ticker": "AMZN"
+    }
+  },
+  {
+    "prompt": "Get the latest market data for Berkshire Hathaway. User ID: user6",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Berkshire Hathaway",
+      "ticker": "BRK.B"
+    }
+  },
+  {
+    "prompt": "Fetch current stock information for Meta Platforms Inc. User ID: user7",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Meta Platforms Inc.",
+      "ticker": "META"
+    }
+  },
+  {
+    "prompt": "Retrieve details on NVIDIA Corporation stock. User ID: user8",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "NVIDIA Corporation",
+      "ticker": "NVDA"
+    }
+  },
+  {
+    "prompt": "Provide stock data and recent performance for JPMorgan Chase. User ID: user9",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "JPMorgan Chase",
+      "ticker": "JPM"
+    }
+  },
+  {
+    "prompt": "Get the financial details for Procter & Gamble. User ID: user10",
+    "expected_function": "get_stock_info",
+    "expected_parameters": {
+      "stock_name": "Procter & Gamble",
+      "ticker": "PG"
+    }
+  }
+]

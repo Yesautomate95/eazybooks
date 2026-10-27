@@ -1,0 +1,28 @@
+{
+  "database": {
+    "technology": "postgres",
+    "server": "<PG_SERVER>",
+    "port": 5432,
+    "ssl": true,
+    "schema": "defaultdb",
+    "username": "<PG_USERNAME>",
+    "password": "<PG_PASSWORD>",
+    "loadmethod": "insert"
+  },
+  "tally": {
+    "definition": "config/tally-export-config-incremental.yaml",
+    "server": "localhost",
+    "port": 9000,
+    "fromdate": "auto",
+    "todate": "auto",
+    "sync": "incremental",
+    "frequency": 0,
+    "company": ""
+  },
+  "user": {
+    "id": ""
+  },
+  "company": {
+    "name": ""
+  }
+}

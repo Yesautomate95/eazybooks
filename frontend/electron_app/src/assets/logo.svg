@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Circle -->
+    <circle cx="256" cy="256" r="248" fill="#2563eb" stroke="#1d4ed8" stroke-width="16"/>
+    
+    <!-- Letter A -->
+    <path d="M256 120L352 392H160L256 120Z" fill="white"/>
+    
+    <!-- Letter C -->
+    <path d="M352 256C352 309 309 352 256 352C203 352 160 309 160 256C160 203 203 160 256 160" 
+          stroke="white" stroke-width="32" stroke-linecap="round"/>
+</svg> 

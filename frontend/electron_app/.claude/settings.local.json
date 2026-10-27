@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:/Users/Priyanshu Chauhan/Tally Automation/tallyAutomation-frontend/electron_app\" && npm install 2>&1 | tail -20)",
+      "Bash(cd \"C:/Users/Priyanshu Chauhan/Tally Automation/tallyAutomation-frontend/electron_app\" && timeout 15 npx electron . 2>&1 || true)"
+    ]
+  }
+}

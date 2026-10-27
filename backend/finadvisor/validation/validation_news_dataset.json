@@ -1,0 +1,71 @@
+[{
+    "prompt": "Show me the latest financial news sorted by date. User ID: user11",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "date"
+    }
+  },
+  {
+    "prompt": "Fetch the most relevant stock market news articles. User ID: user12",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "relevance"
+    }
+  },
+  {
+    "prompt": "Give me the trending stock market news. User ID: user13",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "popularity"
+    }
+  },
+  {
+    "prompt": "I want the latest news about market trends. User ID: user14",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "date"
+    }
+  },
+  {
+    "prompt": "Retrieve news about recent IPOs. User ID: user15",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "relevance"
+    }
+  },
+  {
+    "prompt": "Get popular articles on the stock market. User ID: user16",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "popularity"
+    }
+  },
+  {
+    "prompt": "What are the recent developments in finance? User ID: user17",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "relevance"
+    }
+  },
+  {
+    "prompt": "Provide the latest updates on investment opportunities. User ID: user18",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "date"
+    }
+  },
+  {
+    "prompt": "Fetch the top financial news articles. User ID: user19",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "popularity"
+    }
+  },
+  {
+    "prompt": "Give me breaking news in the finance sector. User ID: user20",
+    "expected_function": "get_stocks_news",
+    "expected_parameters": {
+      "sort_by": "date"
+    }
+  }
+]

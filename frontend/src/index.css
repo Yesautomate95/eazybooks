@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────────
+   Design tokens (CSS variables)
+   ────────────────────────────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --color-brand: 79 70 229;          /* indigo-600 */
+  --color-brand-hover: 67 56 202;    /* indigo-700 */
+  --color-brand-soft: 238 242 255;   /* indigo-50 */
+
+  /* Surfaces */
+  --color-surface: 255 255 255;
+  --color-surface-muted: 248 250 252;   /* ink-50 */
+  --color-surface-subtle: 241 245 249;  /* ink-100 */
+  --color-surface-sunken: 248 250 252;
+
+  /* Text */
+  --color-text-primary: 15 23 42;     /* ink-900 */
+  --color-text-secondary: 71 85 105;  /* ink-600 */
+  --color-text-tertiary: 100 116 139; /* ink-500 */
+  --color-text-disabled: 148 163 184; /* ink-400 */
+  --color-text-inverse: 255 255 255;
+
+  /* Borders */
+  --color-border: 226 232 240;        /* ink-200 */
+  --color-border-strong: 203 213 225; /* ink-300 */
+  --color-border-focus: 79 70 229;
+
+  /* Legacy fallbacks — kept so existing components compile */
+  --primary-color: #4F46E5;
+  --secondary-color: #475569;
+  --background-color: #FFFFFF;
+  --text-color: #0F172A;
+  --primary-color-light: rgba(79, 70, 229, 0.12);
+
+  /* shadcn-style HSL fallbacks for color: hsl(var(--*)) */
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --primary: 243 75% 59%;
+  --muted: 210 40% 96%;
+  --border: 214 32% 91%;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Resets and base typography
+   ────────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(var(--color-surface-muted));
+  color: rgb(var(--color-text-primary));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+body {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: rgb(var(--color-text-primary));
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+p { margin: 0; }
+button { font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+/* Tabular numerals for tables, statements, money */
+.tabular-nums,
+table, td, th,
+input[type="number"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Scrollbars — subtle, on-brand
+   ────────────────────────────────────────────────────────────────── */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border-strong));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-text-disabled));
+  background-clip: padding-box;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Focus-visible defaults — accessible, on-brand
+   ────────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-border-focus));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Compatibility shims for legacy classnames still in the codebase
+   ────────────────────────────────────────────────────────────────── */
+.text-color { color: var(--text-color); }
+.bg-text-color { background-color: var(--text-color); }
+.secondary-color { color: var(--secondary-color); }
+.bg-secondary-color { background-color: var(--secondary-color); }
+.background-color { color: var(--background-color); }
+.bg-background-color { background-color: var(--background-color); }
+.primary-color { color: var(--primary-color); }
+.bg-primary-color { background-color: var(--primary-color); }
+
+.always-black,
+.always-black *,
+.always-black strong { color: #0F172A !important; }
+
+/* Swiper pagination */
+.custom-pagination .swiper-pagination-bullet-active {
+  background-color: var(--primary-color);
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Markdown / AI response styling (used by chatbots)
+   ────────────────────────────────────────────────────────────────── */
+.ai-response-container {
+  max-width: 800px;
+  margin: 0 auto;
+  color: rgb(var(--color-text-primary));
+}
+
+.thinking-section {
+  margin: 20px 0;
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgb(var(--color-surface));
+}
+
+.thinking-header {
+  background-color: rgb(var(--color-surface-muted));
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgb(var(--color-text-secondary));
+}
+
+.thinking-content {
+  padding: 16px;
+  background-color: rgb(var(--color-surface-muted));
+  border-top: 1px solid rgb(var(--color-border));
+}
+
+.thought-item {
+  margin: 8px 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  color: rgb(var(--color-text-secondary));
+}
+
+.thinking-indicator {
+  margin: 8px 0;
+  color: rgb(var(--color-text-tertiary));
+  animation: pulse 1.5s infinite;
+}
+
+.final-response {
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 10px;
+  background-color: rgb(var(--color-surface));
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Component classes — small, reusable surface primitives
+   ────────────────────────────────────────────────────────────────── */
+@layer components {
+  .card-surface {
+    @apply bg-white border border-ink-200 rounded-xl shadow-sm;
+  }
+  .card-interactive {
+    @apply bg-white border border-ink-200 rounded-xl shadow-sm transition-all duration-150 hover:border-ink-300 hover:shadow-md;
+  }
+  .text-muted { @apply text-ink-500; }
+  .text-subtle { @apply text-ink-400; }
+  .divider { @apply border-t border-ink-200; }
+}

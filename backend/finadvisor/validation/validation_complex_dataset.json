@@ -1,0 +1,130 @@
+[
+    {
+        "prompt": "I want to know the latest stock price and news about Tesla Inc. (ticker: TSLA). User ID: user1",
+        "expected_function_calls": [
+            {
+                "function": "get_stock_info",
+                "parameters": {
+                    "stock_name": "Tesla Inc.",
+                    "ticker": "TSLA"
+                }
+            },
+            {
+                "function": "get_stocks_news",
+                "parameters": {
+                    "sort_by": "date"
+                }
+            }
+        ]
+    },
+    {
+        "prompt": "My salary is ₹30 LPA, and I save ₹10 LPA. I also hold 200 shares of Infosys bought at ₹1500 each. User ID: user2",
+        "expected_function_calls": [
+            {
+                "function": "extract_financial_data",
+                "parameters": {
+                    "user_id": "user2",
+                    "financial_data_string": "My salary is ₹30 LPA, and I save ₹10 LPA."
+                }
+            },
+            {
+                "function": "extract_and_store_portfolio_data",
+                "parameters": {
+                    "user_id": "user2",
+                    "portfolio_data_string": "I also hold 200 shares of Infosys bought at ₹1500 each."
+                }
+            }
+        ]
+    },
+    {
+        "prompt": "What are the best investment opportunities this year? My salary is ₹20 LPA, and I save ₹5 LPA annually. User ID: user3",
+        "expected_function_calls": [
+            {
+                "function": "internet_search",
+                "parameters": {
+                    "query": "Best investment opportunities this year"
+                }
+            },
+            {
+                "function": "extract_financial_data",
+                "parameters": {
+                    "user_id": "user3",
+                    "financial_data_string": "My salary is ₹20 LPA, and I save ₹5 LPA annually."
+                }
+            }
+        ]
+    },
+    {
+        "prompt": "I have 50 shares of Wipro bought at ₹400 each, and I want to know the latest news about Wipro. User ID: user4",
+        "expected_function_calls": [
+            {
+                "function": "extract_and_store_portfolio_data",
+                "parameters": {
+                    "user_id": "user4",
+                    "portfolio_data_string": "I have 50 shares of Wipro bought at ₹400 each."
+                }
+            },
+            {
+                "function": "get_stocks_news",
+                "parameters": {
+                    "sort_by": "relevance"
+                }
+            }
+        ]
+    },
+    {
+        "prompt": "Consolidate the following: Old data - Salary: ₹25 LPA, Expenses: ₹15 LPA; New data - Investments: ₹5 LPA. I also own 100 shares of TCS bought at ₹3000 each. User ID: user5",
+        "expected_function_calls": [
+            {
+                "function": "merge_financial_data",
+                "parameters": {
+                    "old_data": "Salary: ₹25 LPA, Expenses: ₹15 LPA",
+                    "new_data": "Investments: ₹5 LPA"
+                }
+            },
+            {
+                "function": "extract_and_store_portfolio_data",
+                "parameters": {
+                    "user_id": "user5",
+                    "portfolio_data_string": "I also own 100 shares of TCS bought at ₹3000 each."
+                }
+            }
+        ]
+    },
+    {
+        "prompt": "Tell me about NVIDIA's stock performance and provide relevant insights for 2024. User ID: user6",
+        "expected_function_calls": [
+            {
+                "function": "get_stock_info",
+                "parameters": {
+                    "stock_name": "NVIDIA Corporation",
+                    "ticker": "NVDA"
+                }
+            },
+            {
+                "function": "internet_search",
+                "parameters": {
+                    "query": "NVIDIA stock insights 2024"
+                }
+            }
+        ]
+    },
+    {
+        "prompt": "I own 50 shares of ICICI Bank at ₹900 each and want the latest news about banking stocks. User ID: user7",
+        "expected_function_calls": [
+            {
+                "function": "extract_and_store_portfolio_data",
+                "parameters": {
+                    "user_id": "user7",
+                    "portfolio_data_string": "I own 50 shares of ICICI Bank at ₹900 each."
+                }
+            },
+            {
+                "function": "get_stocks_news",
+                "parameters": {
+                    "sort_by": "date"
+                }
+            }
+        ]
+    }
+]

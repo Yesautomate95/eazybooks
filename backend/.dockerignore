@@ -1,0 +1,43 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv
+ENV
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Local files
+.env
+.env.local
+firebase_key.json
+
+# Test files
+tests/
+pytest_cache/
+.coverage
+
+# Documentation
+*.md
+docs/
+
+# Mock server (not needed in production)
+mock_tally/
+
+# OpenAI responses (debug folder)
+applicationca/openai_responses/

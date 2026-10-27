@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EazyBooks - Database Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <span class="logo-text">EazyBooks</span>
+                <button class="collapse-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/>
+                    </svg>
+                    <span>Tally</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="tally-import">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M12 16V4"/>
+                    </svg>
+                    <span>Import</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="companies">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 7h-7m7 5h-7m7 5h-7M7 7v10m0-10H4v10h3m0-10h3v10H7"/>
+                    </svg>
+                    <span>Companies</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="settings">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
+                        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logout-button" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span>Logout</span>
+                </button>
+                <button class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12" y2="17"/>
+                    </svg>
+                    <span>Help</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="connection-status">
+                <div class="status-indicator status-disconnected">
+                    <div class="status-dot"></div>
+                    <span id="connection-status">Disconnected</span>
+                </div>
+                <button id="connect-button" class="button button-primary">Connect</button>
+            </div>
+
+            <div class="tab-content active" data-panel="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Quick Actions</h2>
+                    </div>
+                    <div class="card-content">
+                        <button id="test-connection" class="button button-secondary" disabled>Test ODBC Connection</button>
+                        <!-- New WebSocket test button -->
+                        <button id="test-websocket" class="button button-secondary">Test WebSocket</button>
+                        <button id="refresh-companies" class="button button-secondary" disabled>Refresh Companies</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">System Logs</h2>
+                    </div>
+                    <div id="log-container" class="log-container"></div>
+                </div>
+            </div>
+
+            <div class="tab-content" data-panel="companies">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Companies</h2>
+                        <button id="companies-refresh" class="button button-secondary">Refresh</button>
+                    </div>
+                    <div class="companies-list">
+                        <!-- Companies will be dynamically inserted here -->
+                        <div class="no-companies">
+                            <p>Connect to the database to view companies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" data-panel="settings">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">ODBC Settings</h2>
+                    </div>
+                    <form id="settings-form" class="form-group">
+                        <div class="form-group">
+                            <label class="form-label">ODBC Driver</label>
+                            <input type="text" class="form-input" name="odbc-driver" value="{Tally ODBC Driver64}" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Server</label>
+                            <input type="text" class="form-input" name="odbc-server" value="localhost" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Port</label>
+                            <input type="text" class="form-input" name="odbc-port" value="9000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Auto Connect</label>
+                            <input type="checkbox" name="auto-connect">
+                        </div>
+                        
+                        <button type="submit" class="button button-primary">Save Settings</button>
+                        <button type="reset" class="button button-secondary">Reset</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tab-content" data-panel="tally-import">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Tally Database Import</h2>
+                    </div>
+                    <div class="card-content">
+                        <!-- Status Section -->
+                        <div class="import-status-section">
+                            <h3>Import Status</h3>
+                            <div class="status-info">
+                                <p>Current status: <span id="import-status-text" class="status-indicator">idle</span></p>
+                                <p>Running: <span id="import-running-status">No</span></p>
+                                <p>Last sync: <span id="import-last-sync">Never</span></p>
+                            </div>
+                            <div class="action-buttons">
+                                <button id="start-export-btn" class="button button-primary">Start Import</button>
+                                <button id="view-logs-btn" class="button button-secondary">View Logs</button>
+                            </div>
+                        </div>
+
+                        <!-- Connection Tests Section -->
+                        <div class="connection-tests">
+                            <h3>Connection Tests</h3>
+                            <div class="test-buttons">
+                                <button id="test-tally-btn" class="button button-secondary">Test Tally Connection</button>
+                                <button id="test-database-btn" class="button button-secondary">Test Database Connection</button>
+                            </div>
+                            <div id="connection-test-results" class="test-results"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Import Configuration</h2>
+                    </div>
+                    <div class="card-content">
+                        <form id="tally-import-config-form">
+                            <!-- Tally Settings -->
+                            <div class="settings-section">
+                                <h3>Tally Settings</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Server</label>
+                                    <input type="text" class="form-input" id="tally-server" name="tally-server" placeholder="localhost" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Port</label>
+                                    <input type="number" class="form-input" id="tally-port" name="tally-port" placeholder="9000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Date Range</label>
+                                    <div class="info-text">
+                                        Dates will be automatically determined:
+                                        <ul>
+                                            <li>Full Sync: All available data</li>
+                                            <li>Incremental Sync: From last sync date</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Sync Type</label>
+                                    <select class="form-select" id="tally-sync" name="tally-sync" required>
+                                        <option value="full">Full Sync</option>
+                                        <option value="incremental">Incremental Sync</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Company</label>
+                                    <select class="form-select" id="tally-company" name="tally-company">
+                                        <option value="">All Companies</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="button button-primary">Save Configuration</button>
+                                <button type="reset" class="button button-secondary">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Logs Card (Initially Hidden) -->
+                <div id="logs-card" class="card" style="display: none;">
+                    <div class="card-header">
+                        <h2 class="card-title">Import Logs</h2>
+                        <button id="close-logs-btn" class="button button-small">Close</button>
+                    </div>
+                    <div class="card-content">
+                        <div class="logs-section">
+                            <h3>Import Log</h3>
+                            <div id="import-log" class="log-container"></div>
+                        </div>
+                        <div class="logs-section">
+                            <h3>Error Log</h3>
+                            <div id="error-log" class="log-container error-log"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Status Bar -->
+    <div class="bottom-status-bar">
+        <div class="status-section">
+            <span class="status-icon tally"></span>
+            <span id="odbc-status-label">Tally :</span>
+            <span id="odbc-status-text" class="status-text">DISCONNECTED</span>
+        </div>
+        <div class="status-section center">
+            <span class="version-label">v 1.0.0</span>
+        </div>
+        <div class="status-section right">
+            <span class="status-icon ws"></span>
+            <span id="ws-status-label">Internet :</span>
+            <span id="ws-status-text" class="status-text">DISCONNECTED</span>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html> 

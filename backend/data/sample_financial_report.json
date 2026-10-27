@@ -1,0 +1,152 @@
+{
+  "financialHealth": {
+    "overall_financial_health_score": {
+      "score": 82
+    },
+    "savings_investments": [
+      {
+        "name": "Savings & Investments",
+        "value": 70,
+        "color": "#6B5B95"
+      },
+      {
+        "name": "Financial Security",
+        "value": 85,
+        "color": "#0096C7"
+      },
+      {
+        "name": "Portfolio Mix",
+        "value": 65,
+        "color": "#2D6A4F"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "title": "Spending Habit",
+      "fields": [
+        {
+          "label": "Monthly Income",
+          "value": "₹ 1 Lakh"
+        },
+        {
+          "label": "Expenses",
+          "value": "57%"
+        },
+        {
+          "label": "Savings",
+          "value": "43%"
+        },
+        {
+          "label": "Habit",
+          "value": "Saver",
+          "badge": true,
+          "badgeColor": "bg-green-500"
+        }
+      ]
+    },
+    {
+      "title": "My Finance",
+      "fields": [
+        {
+          "label": "Net Worth",
+          "value": "₹ 2 Lakh"
+        },
+        {
+          "label": "Total Assets",
+          "value": "₹ 2 Lakh"
+        },
+        {
+          "label": "Equity Allocation",
+          "value": "100%"
+        },
+        {
+          "label": "Monthly Investments",
+          "value": "₹ 40 K"
+        }
+      ]
+    },
+    {
+      "title": "Emergency Fund",
+      "fields": [
+        {
+          "label": "Funds Needed",
+          "value": "₹ 5.4 Lakh"
+        },
+        {
+          "label": "Already Have",
+          "value": "₹ 0"
+        },
+        {
+          "label": "Need More",
+          "value": "₹ 5.4 Lakh"
+        },
+        {
+          "label": "Status",
+          "value": "Inadequate",
+          "badge": true,
+          "badgeColor": "bg-red-500"
+        }
+      ]
+    },
+    {
+      "title": "Insurance",
+      "fields": [
+        {
+          "label": "Life Cover",
+          "value": "₹ 50 Lakh"
+        },
+        {
+          "label": "Health Cover",
+          "value": "₹ 50 Lakh"
+        },
+        {
+          "label": "Cover Status",
+          "value": "Underinsured",
+          "badge": true,
+          "badgeColor": "bg-red-500"
+        },
+        {
+          "label": "Cover Status",
+          "value": "Insured",
+          "badge": true,
+          "badgeColor": "bg-green-500"
+        }
+      ]
+    },
+    {
+      "title": "Debt",
+      "fields": [
+        {
+          "label": "Total Loans",
+          "value": "₹ 0"
+        },
+        {
+          "label": "Total EMIs",
+          "value": "₹ 5 K"
+        },
+        {
+          "label": "EMI Load",
+          "value": "5%"
+        },
+        {
+          "label": "Risk of Debt Trap",
+          "value": "Low",
+          "badge": true,
+          "badgeColor": "bg-green-500"
+        }
+      ]
+    },
+    {
+      "title": "Risk Profile",
+      "fields": [
+        {
+          "label": "As an investor, you are",
+          "value": "Aggressive",
+          "badge": true,
+          "badgeColor": "bg-orange-300"
+        }
+      ]
+    }
+  ]
+}

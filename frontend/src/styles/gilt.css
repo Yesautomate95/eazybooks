@@ -1,0 +1,282 @@
+/*
+ * The Gilt Ledger — design tokens & primitives for the public pages
+ * (landing, login, signup). Scoped under .gl-root so the dashboard
+ * keeps its existing indigo/slate system untouched.
+ *
+ * Consumed two ways:
+ *  - Tailwind `gilt.*` colors read these vars (see tailwind.config.js)
+ *  - the gl-* utility classes below
+ */
+
+.gl-root {
+  /* paper & ink — "counting house, daylight" */
+  --gl-paper: 248 244 234;      /* #F8F4EA warm ivory */
+  --gl-card: 255 253 247;       /* #FFFDF7 raised stock */
+  --gl-sunken: 241 234 220;     /* #F1EADC sunken panel */
+  --gl-ink: 30 24 18;           /* #1E1812 warm ink-black */
+  --gl-ink-soft: 92 83 67;      /* #5C5343 secondary text */
+  --gl-ink-faint: 138 127 106;  /* #8A7F6A tertiary text */
+  --gl-hairline: 227 218 198;   /* #E3DAC6 rules & borders */
+
+  /* metals — minted brass, never mustard.
+     brass is the TEXT metal (#8A6A1C = 4.6:1 on ivory, AA for small text);
+     gold/gold-hi are graphic-only fills — never use them for copy. */
+  --gl-brass: 138 106 28;       /* #8A6A1C text-safe gold */
+  --gl-gold: 197 151 44;        /* #C5972C graphic fills */
+  --gl-gold-hi: 232 204 116;    /* #E8CC74 only inside the gilt hairline gradient */
+  --gl-gold-deep: 138 106 28;   /* #8A6A1C gradient ends, pressed states */
+
+  /* book-keeping semantics — green means credit, madder means debit */
+  --gl-credit: 40 80 60;        /* #28503C banker's green */
+  --gl-debit: 163 55 42;        /* #A3372A madder red */
+
+  /* motion */
+  --gl-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --gl-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --gl-dur-fast: 180ms;
+  --gl-dur: 320ms;
+  --gl-dur-slow: 640ms;
+
+  background-color: rgb(var(--gl-paper));
+  color: rgb(var(--gl-ink));
+  color-scheme: light;
+}
+
+/* Applies to the whole page (root toggle) or to a nested section,
+   so a single band can render in the lamplit palette in light mode */
+.gl-root.gl-dark,
+.gl-root .gl-dark {
+  /* "after-hours, lamplit" — a deliberate palette, not an inversion */
+  --gl-paper: 23 19 16;         /* #171310 espresso ink */
+  --gl-card: 33 27 21;          /* #211B15 */
+  --gl-sunken: 26 21 17;        /* #1A1511 */
+  --gl-ink: 239 230 212;        /* #EFE6D4 lamplit parchment */
+  --gl-ink-soft: 169 156 132;   /* #A99C84 */
+  --gl-ink-faint: 122 111 92;   /* #7A6F5C */
+  --gl-hairline: 53 44 33;      /* #352C21 */
+  --gl-brass: 215 180 90;       /* #D7B45A */
+  --gl-gold: 215 180 90;
+  --gl-gold-hi: 240 217 138;    /* #F0D98A */
+  --gl-gold-deep: 154 118 40;
+  --gl-credit: 111 163 131;     /* #6FA383 */
+  --gl-debit: 201 106 87;       /* #C96A57 */
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------- */
+/* Typography                                                        */
+/* ---------------------------------------------------------------- */
+
+/* Georgia adjusted to Fraunces' metrics so the headline doesn't
+   reflow when the webfont swaps in (CLS guard) */
+@font-face {
+  font-family: 'Fraunces Fallback';
+  src: local('Georgia');
+  size-adjust: 100.8%;
+  ascent-override: 97.8%;
+  descent-override: 25.4%;
+  line-gap-override: 0%;
+}
+
+/* Display serif at full optical size; engraved, never wonky by default */
+.gl-display {
+  font-family: 'Fraunces', 'Fraunces Fallback', Georgia, serif;
+  font-variation-settings: 'opsz' 144, 'SOFT' 0, 'WONK' 0;
+  font-weight: 560;
+  letter-spacing: -0.015em;
+}
+
+/* The one permitted wink: an italic, soft, wonky word */
+.gl-wonk {
+  font-family: 'Fraunces', 'Fraunces Fallback', Georgia, serif;
+  font-style: italic;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+  font-weight: 540;
+}
+
+/* Letterspaced small-caps eyebrow: "ENTRY № 02 · AUTO-MATCHED" */
+.gl-eyebrow {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--gl-brass));
+}
+
+/* ---------------------------------------------------------------- */
+/* Surfaces & rules                                                  */
+/* ---------------------------------------------------------------- */
+
+/* Laid-paper grain. Pure SVG turbulence, no asset, no layout cost. */
+.gl-grain {
+  position: relative;
+}
+.gl-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+.gl-dark .gl-grain::before,
+.gl-dark.gl-grain::before {
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+}
+
+/* Gilded page edge — the ONLY gradient in the system */
+.gl-gilt-edge {
+  position: relative;
+}
+.gl-gilt-edge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--gl-gold-deep)),
+    rgb(var(--gl-gold-hi)) 50%,
+    rgb(var(--gl-gold-deep))
+  );
+}
+
+/* The accountant's "this sum is final" mark */
+.gl-double-rule {
+  border-bottom: 3px double rgb(var(--gl-ink));
+}
+
+/* Vertical gilt edge — the gilded page-block of a closed ledger,
+   used on the workroom sidebar's outer edge */
+.gl-gilt-spine {
+  position: relative;
+}
+.gl-gilt-spine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--gl-gold-deep)),
+    rgb(var(--gl-gold-hi)) 50%,
+    rgb(var(--gl-gold-deep))
+  );
+  opacity: 0.7;
+}
+
+/* Ruled ledger baselines for card interiors */
+.gl-ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--gl-rule-gap, 2.5rem) - 1px),
+    rgb(var(--gl-hairline) / 0.8) calc(var(--gl-rule-gap, 2.5rem) - 1px),
+    rgb(var(--gl-hairline) / 0.8) var(--gl-rule-gap, 2.5rem)
+  );
+}
+
+/* Third-party logos rendered as uniform ink; parchment in dark mode */
+.gl-logo {
+  filter: grayscale(1) brightness(0.35);
+}
+.gl-root.gl-dark .gl-logo,
+.gl-root .gl-dark .gl-logo {
+  filter: grayscale(1) brightness(0) invert(0.85);
+}
+
+/* Coin-edge dial — a minted brass coin whose milled (reeded) rim turns while
+   a connection is being established or recovered. The radial center punches a
+   card-coloured face so only the toothed edge shows; the conic gradient is the
+   reeding. Used for "connecting" / "reconnecting" status (never red — red is
+   reserved for debit). Honours prefers-reduced-motion via the global rule. */
+.gl-coin-dial {
+  display: inline-block;
+  flex: none;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgb(var(--gl-card)) 0 36%, transparent 37%),
+    repeating-conic-gradient(
+      rgb(var(--gl-gold)) 0deg 9deg,
+      rgb(var(--gl-gold-deep)) 9deg 18deg
+    );
+  box-shadow: inset 0 0 0 1px rgb(var(--gl-brass) / 0.55);
+  animation: gl-coin-spin 2.4s linear infinite;
+}
+@keyframes gl-coin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Accessibility                                                     */
+/* ---------------------------------------------------------------- */
+
+.gl-root :focus-visible {
+  outline: 2px solid rgb(var(--gl-brass));
+  outline-offset: 2px;
+}
+
+/* Skip past the sticky masthead — visually hidden until focused */
+.gl-skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  transform: translateY(-200%);
+  background: rgb(var(--gl-ink));
+  color: rgb(var(--gl-paper));
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: 'Switzer', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+.gl-skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Smooth anchor scrolling (scroll-behavior only works on the scrolling
+   element, i.e. html) + clearance so targets don't land under the masthead.
+   When Lenis drives the scroll it adds .lenis to <html>; CSS smooth must
+   yield to it or the two fight. */
+html:has(.gl-root) {
+  scroll-behavior: smooth;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.gl-root [id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.gl-root) {
+    scroll-behavior: auto;
+  }
+  .gl-root,
+  .gl-root *,
+  .gl-root *::before,
+  .gl-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
